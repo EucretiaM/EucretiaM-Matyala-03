@@ -1,31 +1,23 @@
-**2.3 C4 Architectural Diagrams(Architecture.md)**
+```mermaid
+graph TD
+    subgraph Users
+        Learner["User (Learner)"]
+    end
 
-**MATH BOOSTER**
+    subgraph "Math Booster System"
+        App["App (Math Booster)"]
+        WebApp["Web Application"]
+        MobileApp["Mobile Application"]
+        API["API"]
+        Database["MongoDB Database"]
+        AI["AI Service"]
+    end
 
-An application that helps learners improve Math marks
-
-User Register/Loging Interface
-
-**The App**
-
-Users could install the app either on mobile phones or laptops
-
-**Web Application**
-
-Users could use the web application to register and log on
-
-**Database – MongoDB**
-
-The database will contain the users’ credentials, Math content, reports – AI will be outsourced
-
-**Analysis**
-
-Planning, Reports on performance, and recommendations.
-
-**API**
-
-For safeguarding the data and intrusion of the system
-
-**AI**
-
-Real Time Chat Interface
+    Learner -->|Registers/Logs In| WebApp
+    Learner -->|Registers/Logs In| MobileApp
+    WebApp --> API
+    MobileApp --> API
+    API --> Database
+    API --> AI
+    AI -->|Provides Recommendations| App
+    Database -->|Stores Data| API
