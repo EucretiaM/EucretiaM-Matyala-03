@@ -1,31 +1,54 @@
 ```mermaid
-graph TD
-    subgraph Users
-        direction LR
-        Learner["User (Learner)"]
-    end
+classDiagram
+    class AuthController {
+        +login()
+        +register()
+    }
+    class AuthService {
+        +validateCredentials()
+        +generateToken()
+    }
+    class AuthMiddleware {
+        +checkToken()
+    }
+    class UserController {
+        +getUserProfile()
+        +updateUserProfile()
+    }
+    class UserService {
+        +getUserData()
+        +updateUserData()
+    }
+    class UserModel {
+        +_id
+        +email
+        +name
+        +passwordHash
+    }
+    class AIController {
+        +requestRecommendation()
+        +receiveAIResponse()
+    }
+    class AIService {
+        +callAIAPI()
+        +processAIResponse()
+    }
+    class AIModel {
+        +responseType
+        +recommendationData
+    }
+    class MongoDBModel {
+        +userSchema()
+        +mathContentSchema()
+        +reportSchema()
+    }
 
-    subgraph "Math Booster System"
-        direction LR
-        App["App (Math Booster)"]
-        WebApp["Web Application"]
-        MobileApp["Mobile Application"]
-        API["API"]
-        Database["MongoDB Database"]
-        AI["AI Service (Real-Time Chat)"]
-        Analysis["Analysis (Performance & Recommendations)"]
-    end
-
-    Learner -->|Registers/Logs In| WebApp
-    Learner -->|Registers/Logs In| MobileApp
-    WebApp --> API
-    MobileApp --> API
-    API --> Database
-    API --> AI
-    AI -->|Provides Chat Interface| App
-    Database -->|Stores User Data & Math Content| API
-    API -->|Safeguards Data & System| Database
-    Analysis -->|Generates Reports & Recommendations| API
-    Database -->|Stores Reports| Analysis
-    AI -->|Outsourced AI Service| API
-
+    AuthController --> AuthService
+    AuthService --> AuthMiddleware
+    UserController --> UserService
+    UserService --> UserModel
+    AIController --> AIService
+    AIService --> AIModel
+    MongoDBModel --> UserModel
+    MongoDBModel --> MathContentModel
+    MongoDBModel --> ReportModel
